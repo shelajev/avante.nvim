@@ -1,8 +1,6 @@
 name: pre-commit
 
 on:
-  pull_request:
-    types: [labeled, opened, reopened, synchronize]
   push:
     branches: [main, test-me-*]
 
@@ -11,28 +9,28 @@ jobs:
     if: "github.event.action != 'labeled' || github.event.label.name == 'pre-commit ci run'"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
     - run: gh pr edit ${{ github.event.number }} --remove-label 'pre-commit ci run'
       if: github.event.action == 'labeled' && github.event.label.name == 'pre-commit ci run'
       env:
         GH_TOKEN: ${{ github.token }}
-    - uses: actions/setup-python@v3
+    - uses: actions/setup-python@3542bca2639a428e1796aaa6a2ffef0c0f575566 # v3
       with:
         python-version: '3.11'
     - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
     - run: |
         uv venv
         source .venv/bin/activate
         uv pip install -r py/rag-service/requirements.txt
-    - uses: leafo/gh-actions-lua@v11
-    - uses: leafo/gh-actions-luarocks@v5
+    - uses: leafo/gh-actions-lua@8aace3457a2fcf3f3c4e9007ecc6b869ff6d74d6 # v11
+    - uses: leafo/gh-actions-luarocks@4c082a5fad45388feaeb0798dbd82dbd7dc65bca # v5
     - run: luarocks install luacheck
     - name: Install stylua from crates.io
-      uses: baptiste0928/cargo-install@v3
+      uses: baptiste0928/cargo-install@8195d4f734a149db85385bb4102b42efcd373759 # v3
       with:
         crate: stylua
         args: --features lua54
-    - uses: pre-commit/action@v3.0.1
-    - uses: pre-commit-ci/lite-action@v1.1.0
+    - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+    - uses: pre-commit-ci/lite-action@5d6cc0eb514c891a40562a58a8e71576c5c7fb43 # v1.1.0
       if: always()

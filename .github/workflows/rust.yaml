@@ -8,14 +8,6 @@ on:
       - "crates/**/*"
       - "Cargo.lock"
       - "Cargo.toml"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "crates/**/*"
-      - "Cargo.lock"
-      - "Cargo.toml"
-
 jobs:
   tests:
     name: Run Rust tests

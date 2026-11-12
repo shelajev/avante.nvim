@@ -7,13 +7,6 @@ on:
     paths:
       - "**/*.lua"
       - ".github/workflows/lua.yaml"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "**/*.lua"
-      - ".github/workflows/lua.yaml"
-
 jobs:
   # reference from: https://github.com/nvim-lua/plenary.nvim/blob/2d9b06177a975543726ce5c73fca176cedbffe9d/.github/workflows/default.yml#L6C3-L43C20
   run_tests:
@@ -26,10 +19,10 @@ jobs:
           - os: ubuntu-22.04
             rev: v0.10.0/nvim-linux64.tar.gz
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
       - run: date +%F > todays-date
       - name: Restore cache for today's nightly.
-        uses: actions/cache@v3
+        uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         with:
           path: _neovim
           key: ${{ runner.os }}-${{ matrix.rev }}-${{ hashFiles('todays-date') }}
@@ -62,9 +55,9 @@ jobs:
         luals_version: [ 3.13.6 ]
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
 
-      - uses: rhysd/action-setup-vim@v1
+      - uses: rhysd/action-setup-vim@febef33995d6649302e9d88dda81e071b68f16a7 # v1
         with:
           neovim: true
           version: ${{ matrix.nvim_version }}
